@@ -1,9 +1,11 @@
 import {
-  html,
   Component,
-  render
-} from "https://unpkg.com/htm/preact/standalone.module.js";
-import Router from "https://unpkg.com/preact-router?module";
+  render,
+  h
+} from "https://unpkg.com/preact@10.4.0/dist/preact.module.js";
+import htm from "https://unpkg.com/htm@3.0.4/dist/htm.module.js";
+const html = htm.bind(h);
+import Router from "./router.js";
 
 const API = "/assets/";
 
