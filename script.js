@@ -16,7 +16,8 @@ class App extends Component {
       categories: [],
       posts: {},
       selectedCategory: null,
-      url: null
+      url: null,
+      hideSidebar: true
     };
   }
 
@@ -42,11 +43,24 @@ class App extends Component {
   }
   render = () => html`
     <div class="w3-row w3-theme wapper">
-      <div class="w3-col w3-third">
-        <${CatNav} url=${this.state.url} cats=${this.state.categories} />
+      <button
+        class="w3-button w3-hide-medium w3-hide-large w3-display-topright"
+        onClick=${e =>
+          this.setState({
+            hideSidebar: !this.state.hideSidebar
+          })}
+      >
+        <img src="./assets/icons/menu.webp" alt="sidebar" />
+      </button>
+
+      <div
+        class=${"w3-col s12 m4 l4 " +
+          (this.state.hideSidebar ? "w3-hide-small" : "")}
+      >
+        <${CatNav} cats=${this.state.categories} />
         <${PostNav} url=${this.state.url} cats=${this.state.categories} />
       </div>
-      <div class="w3-green w3-col w3-twothird">
+      <div class="w3-green w3-col s12 m8 l8">
         <${Router} onChange=${e => this.setState(e)}>
           <${Post} path="/:slug" url=${this.state.url}><//>
           <${Home} path="/"><h1>Hi</h1><//>
@@ -93,7 +107,9 @@ class Post extends Component {
       : this.state.error
       ? this.notFound
       : html`
-          <main><h2>${this.state.post.title}</h2></main>
+          <main>
+            <h2>${this.state.post.title}</h2>
+          </main>
         `;
   }
 }
@@ -111,8 +127,6 @@ const CatNav = props => {
     <nav class="navlist  catList w3-col s5 m5 l5">
       <div>
         <img
-          width="150"
-          height="150"
           class="w3-circle"
           alt="Ahmed Essam"
           src="./assets/icons/me0.webp"
