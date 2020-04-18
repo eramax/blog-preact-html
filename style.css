@@ -4,9 +4,10 @@
 
 .navlist {
   height: 100vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   list-style: none;
-  padding: 15px;
+  padding: 5px;
   text-transform: capitalize;
 }
 
@@ -20,13 +21,13 @@
 }
 .brand {
   font-weight: bold;
+  text-align: center;
 }
 
-.link {
+a {
   cursor: pointer;
   display: block;
   text-decoration: none;
-  white-space: nowrap;
 }
 
 img {

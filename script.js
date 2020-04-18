@@ -14,7 +14,7 @@ class App extends Component {
     super(props);
     this.state = {
       categories: [],
-      posts: {},
+      posts: [],
       selectedCategory: null,
       url: null,
       hideSidebar: true
@@ -58,7 +58,7 @@ class App extends Component {
           (this.state.hideSidebar ? "w3-hide-small" : "")}
       >
         <${CatNav} cats=${this.state.categories} />
-        <${PostNav} url=${this.state.url} cats=${this.state.categories} />
+        <${PostNav} url=${this.state.url} posts=${this.state.posts} />
       </div>
       <div class="w3-green w3-col s12 m8 l8">
         <${Router} onChange=${e => this.setState(e)}>
@@ -133,23 +133,40 @@ const CatNav = props => {
         />
         <h4 class="brand">AHMED ESSAM</h4>
       </div>
-      ${props.cats.map(
-        it =>
-          html`
-            <li><a onClick=${() => console.log(it)}>${it}</a></li>
-          `
-      )}
+      <div>
+        ${props.cats.map(
+          it =>
+            html`
+              <li>
+                <a class="w3-button" onClick=${() => console.log(it)}>${it}</a>
+              </li>
+            `
+        )}
+      </div>
     </nav>
   `;
 };
 
 const PostNav = props => {
   return html`
-    <nav class="navlist postList w3-col s7 m6 l7">
-      ${props.cats.map(
+    <nav class="navlist postList w3-col s7 m7 l7">
+      ${props.posts.map(
         it =>
           html`
-            <li><a onClick=${() => console.log(it)}>${it}</a></li>
+            <a class="w3-panel w3-border-bottom w3-padding-small">
+              <img
+                class="w3-col"
+                src="/assets/icons/post.png"
+                alt="post"
+                style="width:40px; padding-right:5px"
+              />
+              <div class="w3-rest">
+                <b class="w3-row w3-text-grey"
+                  >${new Date(it[1][1] * 1000).toDateString()}</b
+                >
+                <b class="w3-row">${it[1][0]}</b>
+              </div></a
+            >
           `
       )}
     </nav>
