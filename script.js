@@ -13,7 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: null,
+      categories: [],
       posts: {},
       selectedCategory: null,
       url: null
@@ -40,40 +40,18 @@ class App extends Component {
         console.log(error);
       });
   }
-  getCategories() {
-    let list = [];
-    if (this.state.categories != null) {
-      this.state.categories.map(it => {
-        list.push(
-          html`
-            <li
-              className=${it == this.state.selectedPost
-                ? "pure-menu-item cat-item-selected"
-                : "pure-menu-item"}
-            >
-              <a
-                className="pure-menu-link"
-                onClick=${() => this.selectCategory([...[it]])}
-              >
-                ${it}
-              </a>
-            </li>
-          `
-        );
-      });
-    }
-
-    return list;
-  }
   render = () => html`
-    <div class="app">
-      <${Header} url=${this.state.url} />
-      <${Router} onChange=${e => this.setState(e)}>
-        <${About} path="/about" />
-        <${NotFound} default />
-        <${Post} path="/:slug" url=${this.state.url}><//>
-        <${Home} path="/">${this.getCategories()}<//>
-      <//>
+    <div class="w3-row w3-theme wapper">
+      <div class="w3-col w3-third">
+        <${CatNav} url=${this.state.url} cats=${this.state.categories} />
+        <${PostNav} url=${this.state.url} cats=${this.state.categories} />
+      </div>
+      <div class="w3-green w3-col w3-twothird">
+        <${Router} onChange=${e => this.setState(e)}>
+          <${Post} path="/:slug" url=${this.state.url}><//>
+          <${Home} path="/"><h1>Hi</h1><//>
+        <//>
+      </div>
     </div>
   `;
 }
@@ -110,12 +88,12 @@ class Post extends Component {
   render() {
     return this.state.isLoading
       ? html`
-          <h1>Loading....</h1>
+          <main><h1>Loading....</h1></main>
         `
       : this.state.error
       ? this.notFound
       : html`
-          <h2>${this.state.post.title}</h2>
+          <main><h2>${this.state.post.title}</h2></main>
         `;
   }
 }
@@ -123,13 +101,44 @@ class Post extends Component {
 const Header = props => {
   return html`
     <header>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/error">Error</a>
-      </nav>
-      <section>URL:<input readonly value=${props.url} /></section>
+      Header
     </header>
+  `;
+};
+
+const CatNav = props => {
+  return html`
+    <nav class="navlist  catList w3-col s5 m5 l5">
+      <div>
+        <img
+          width="150"
+          height="150"
+          class="w3-circle"
+          alt="Ahmed Essam"
+          src="./assets/icons/me0.webp"
+        />
+        <h4 class="brand">AHMED ESSAM</h4>
+      </div>
+      ${props.cats.map(
+        it =>
+          html`
+            <li><a onClick=${() => console.log(it)}>${it}</a></li>
+          `
+      )}
+    </nav>
+  `;
+};
+
+const PostNav = props => {
+  return html`
+    <nav class="navlist postList w3-col s7 m6 l7">
+      ${props.cats.map(
+        it =>
+          html`
+            <li><a onClick=${() => console.log(it)}>${it}</a></li>
+          `
+      )}
+    </nav>
   `;
 };
 
