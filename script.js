@@ -2,8 +2,8 @@ import {
   Component,
   render,
   h
-} from "https://unpkg.com/preact@10.4.0/dist/preact.module.js";
-import htm from "https://unpkg.com/htm@3.0.4/dist/htm.module.js";
+} from "https://cdn.jsdelivr.net/npm/preact@10.4.0/dist/preact.module.js";
+import htm from "https://cdn.jsdelivr.net/npm/htm@3.0.4/dist/htm.module.js";
 const html = htm.bind(h);
 import Router from "./router.js";
 

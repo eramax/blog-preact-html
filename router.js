@@ -3,7 +3,7 @@ import {
   cloneElement,
   createElement,
   toChildArray
-} from "https://unpkg.com/preact@10.4.0/dist/preact.module.js";
+} from "https://cdn.jsdelivr.net/npm/preact@10.4.0/dist/preact.module.js";
 var EMPTY$1 = {};
 
 function assign(obj, props) {
